@@ -1,0 +1,6 @@
+jobs:
+  main:
+    requires: [ ~commit ]
+    image: node:12
+    steps:
+      - echo: echo hoge

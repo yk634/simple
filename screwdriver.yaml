@@ -3,5 +3,9 @@ jobs:
     requires: [ ~commit ]
     image: node:12
     steps:
-      - echo: echo $SD_SELF_SONAR_HOST
-      - echo2: echo $SD_SELF_SONAR_ADMIN_TOKEN
+      - echo: echo hoge
+  sub:
+    requires: [ ~commit ]
+    image: node:12
+    steps:
+      - echo: exit 1

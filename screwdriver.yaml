@@ -4,7 +4,7 @@ shared:
     GIT_SHALLOW_CLONE_SINGLE_BRANCH: true
   steps:
     - diff: git diff HEAD..HEAD^
-    - gitlog: git log --format="%H"
+    - count: git rev-list --count HEAD
 
 jobs:
   main:

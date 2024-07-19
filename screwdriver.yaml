@@ -1,11 +1,47 @@
+shared:
+  image: node:18
+  environment:
+    GIT_SHALLOW_CLONE_SINGLE_BRANCH: true
+  steps:
+    - diff: git diff HEAD..HEAD^
+    - gitlog: git log --format="%H"
+
 jobs:
   main:
     requires: [ ~commit ]
-    image: node:12
-    steps:
-      - echo: echo hoge
-  sub:
-    requires: [ ~commit ]
-    image: node:12
-    steps:
-      - echo: exit 1
+
+  releaseJob:
+    requires: [ ~release ]
+
+  tagJob:
+    requires: [ ~tag ]
+
+  releaseJobDepth3:
+    requires: [ ~release ]
+    environment:
+      GIT_SHALLOW_CLONE_DEPTH: 3
+
+  tagJobDepth3:
+    requires: [ ~tag ]
+    environment:
+      GIT_SHALLOW_CLONE_DEPTH: 3
+
+  releaseJobSince:
+    requires: [ ~release ]
+    environment:
+      GIT_SHALLOW_CLONE_SINCE: 2024-07-16
+
+  tagJobSince:
+    requires: [ ~tag ]
+    environment:
+      GIT_SHALLOW_CLONE_SINCE: 2024-07-16
+
+  releaseJobShallowFalse:
+    requires: [ ~release ]
+    environment:
+      GIT_SHALLOW_CLONE: false
+
+  tagJobShallowFalse:
+    requires: [ ~tag ]
+    environment:
+      GIT_SHALLOW_CLONE: false
